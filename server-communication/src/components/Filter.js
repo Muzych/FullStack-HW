@@ -1,11 +1,11 @@
 import React  from "react";
 
 
-const Filter = () => {
+const Filter = ({value, onChangeFilter}) => {
     return (
         <>
             filter shown with
-            <input />
+            <input value={value} onChange={onChangeFilter}/>
         </>
     )
 }

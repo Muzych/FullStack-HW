@@ -11,20 +11,59 @@ const App = () => {
     { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
   ])
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
+  const [filter, setFilter] = useState('')
+
+
+  const handleSubmit = (event) => {
+      event.preventDefault()
+      const pBObj = {
+        id: persons.length + 1,
+        name: newName,
+        number: newNumber
+      }
+      if(persons.find(person => person.name === newName)){
+        alert(`${newName} already added to the phonebook.`)
+        setPersons(persons)
+      }
+      else{
+        setPersons(persons.concat(pBObj))
+      }
+      setNewName('')
+      setNewNumber('')
+  }
+
+  const handleNameChange = (event) => {
+    setNewName(event.target.value)
+  }
+
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
+  }
+
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value)
+  }
 
   return (
     <div>
       <h2>Phonebook</h2>
 
-      <Filter />
+      <Filter value={filter} onChangeFilter={handleFilterChange}/>
 
       <h3>Add a new</h3>
 
-      <PersonForm/>
+      <PersonForm 
+        onSubmit={handleSubmit}
+        nameValue={newName}
+        onChangeName={handleNameChange}
+        numberValue={newNumber}
+        onChangeNumber={handleNumberChange}
+      />
 
       <h3>Numbers</h3>
 
-      <Persons />
+      <Persons persons={persons} filter={filter}/>
     </div>
   )
 }
