@@ -23,7 +23,7 @@ const App = () => {
         number: newNumber
       }
       if(persons.find(person => person.name === newName)){
-        alert(`${newName} already added to the phonebook.`)
+        alert(`${newName} is already added to phonebook.`)
         setPersons(persons)
       }
       else{
